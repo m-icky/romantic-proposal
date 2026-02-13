@@ -210,13 +210,6 @@ const EmojiRain = ({ emojis, duration = 3000 }) => {
 // LOADER SCREEN
 // ========================================
 const LoaderScreen = ({ onComplete }) => {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      onComplete();
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [onComplete]);
-
   return (
     <motion.div
       className="loader-screen"
@@ -224,12 +217,29 @@ const LoaderScreen = ({ onComplete }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.1 }}
       transition={{ duration: 0.5 }}
+      onClick={onComplete}
+      style={{ cursor: 'pointer' }}
     >
       <FloatingBubbles />
       <FloatingHearts />
       <SparkleField />
-      <div className="heart-container">
+      <div className="heart-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <div className="heart">❤️</div>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          style={{
+            marginTop: '20px',
+            color: 'white',
+            fontSize: '1.5rem',
+            fontWeight: '600',
+            textShadow: '0 2px 5px rgba(0,0,0,0.2)',
+            fontFamily: "'Playfair Display', serif"
+          }}
+        >
+          Tap to Open
+        </motion.p>
       </div>
     </motion.div>
   );
